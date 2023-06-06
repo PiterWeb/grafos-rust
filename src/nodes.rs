@@ -73,7 +73,7 @@ impl Node {
 
     pub fn add_connection(&mut self, n: &mut Node) {
         self.connections.push(n.get_id());
-        n.connections.push(self.get_id())
+        n.connections.push(self.get_id());
     }
 
     pub fn remove_connection(&mut self, n: &mut Node) {

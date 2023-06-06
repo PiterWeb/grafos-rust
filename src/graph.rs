@@ -1,5 +1,7 @@
 use core::fmt;
-use std::collections::HashMap;
+use std::{
+    collections::HashMap,
+};
 
 use crate::nodes::Node;
 
@@ -14,14 +16,14 @@ impl GraphDocument {
         }
     }
 
-    pub fn append_node(&mut self, n: &Node) {
+    pub fn append_node(&mut self, n: &Node) -> &mut Self {
         self.instance.insert(n.get_id(), n.clone());
-        return;
+        return self;
     }
 
-    pub fn remove_node(&mut self, n: &Node) {
+    pub fn remove_node(&mut self, n: &Node) -> &mut Self {
         self.instance.remove(&n.get_id());
-        return;
+        return self;
     }
 
     pub fn append_connection(&mut self, n1: &Node, n2: &mut Node) {
@@ -36,6 +38,14 @@ impl GraphDocument {
             .get_mut(&n1.get_id())
             .unwrap()
             .remove_connection(n2);
+    }
+
+    pub fn get_nodes_ids(&self) -> Vec<&String> {
+        return self.instance.keys().collect();
+    }
+
+    pub fn get_nodes(&self) -> HashMap<String, Node> {
+        return self.instance.clone();
     }
 }
 

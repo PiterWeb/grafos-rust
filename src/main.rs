@@ -1,5 +1,6 @@
 mod graph;
 mod nodes;
+mod ui;
 
 fn main() {
     let mut n1 = nodes::Node::new();
@@ -27,5 +28,5 @@ fn main() {
 
     doc.append_connection(&n1, &mut n3);
 
-    print!("{}", doc);
+    _ = ui::print_menu(&mut doc);
 }
