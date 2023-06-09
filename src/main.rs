@@ -27,6 +27,7 @@ fn main() {
     doc.append_node(&n3);
 
     doc.append_connection(&n1, &mut n3);
+    doc.append_connection(&n3, &mut n1);
 
     _ = ui::print_menu(&mut doc);
 }

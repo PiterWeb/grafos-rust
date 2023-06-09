@@ -1,7 +1,5 @@
 use core::fmt;
-use std::{
-    collections::HashMap,
-};
+use std::collections::HashMap;
 
 use crate::nodes::Node;
 
@@ -21,8 +19,27 @@ impl GraphDocument {
         return self;
     }
 
-    pub fn remove_node(&mut self, n: &Node) -> &mut Self {
+    pub fn remove_node(&mut self, n: &mut Node) -> &mut Self {
+        let nodes_ids = self.instance.clone();
+
+        let conected_nodes: Vec<&String> = nodes_ids
+            .keys()
+            .filter(|k| n.get_connections().contains(*k))
+            .collect();
+
+        print!("{:?}", conected_nodes);
+
+        for conn_node in conected_nodes {
+            println!("{}", conn_node);
+            let node_to_remove = self.instance.get_mut(conn_node);
+
+            if node_to_remove.is_some() {
+                node_to_remove.unwrap().remove_connection(n);
+            }
+        }
+
         self.instance.remove(&n.get_id());
+
         return self;
     }
 

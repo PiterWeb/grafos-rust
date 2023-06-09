@@ -1,5 +1,6 @@
 use random_string::generate;
 
+#[derive(Debug)]
 struct NodeIdentified {
     id: String,
 }
@@ -24,12 +25,12 @@ impl From<String> for NodeIdentified {
     }
 }
 
+#[derive(Debug)]
 pub struct Node {
     identifier: NodeIdentified,
     attributes: Vec<String>,
     connections: Vec<String>,
 }
-
 impl Node {
     pub fn get_id(&self) -> String {
         return self.identifier.get_id();
@@ -77,21 +78,17 @@ impl Node {
     }
 
     pub fn remove_connection(&mut self, n: &mut Node) {
-        let mut index = self
+        let index = self
             .connections
             .iter()
             .position(|c| c == &n.get_id())
             .unwrap();
 
         self.connections.remove(index);
-
-        index = n.connections.iter().position(|c| c == &n.get_id()).unwrap();
-
-        n.connections.remove(index);
     }
 
-    pub fn is_connected_with(&self, n: Node) -> bool {
-        return self.connections.iter().any(|c| *c == n.get_id());
+    pub fn is_connected_with(&self, n: &Node) -> bool {
+        return n.attributes.contains(&self.get_id());
     }
 }
 

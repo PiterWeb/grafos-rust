@@ -129,9 +129,9 @@ fn remove_node(doc: &mut GraphDocument) -> std::io::Result<()> {
 
     let mut nodes = doc.get_nodes();
 
-    let selected_node = nodes.get_mut(node_id_selected).unwrap();
+    let mut selected_node = nodes.get_mut(node_id_selected).unwrap();
 
-    doc.remove_node(&selected_node);
+    doc.remove_node(&mut selected_node);
 
     _ = print_menu(doc);
     Ok(())
